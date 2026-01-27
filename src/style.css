@@ -50,13 +50,28 @@ header input {
   border: 1px solid var(--input-border);
   border-radius: 4px;
 }
-#theme-toggle {
+#theme-toggle, #github-link {
   background: none;
   border: 1px solid var(--btn-border);
   border-radius: 4px;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0;
+  width: 2.5rem;
+  height: 2.5rem;
   font-size: 1.2rem;
+  color: var(--text-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+#theme-toggle:hover, #github-link:hover {
+  background: var(--btn-hover);
+}
+#github-link svg {
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 #results ul {
