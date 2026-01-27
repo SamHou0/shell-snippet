@@ -9,13 +9,17 @@
 <body>
   <header>
     <h1>Shell 命令小抄</h1>
+    <button id="theme-toggle" aria-label="Toggle Dark Mode">🌓</button>
     <input id="search" type="search" placeholder="搜索简介..." autofocus />
   </header>
   <main>
     <section id="results"></section>
     <section id="detail">
       <h2 id="detail-title"></h2>
-      <pre id="detail-body"></pre>
+      <div class="code-container" style="position: relative;">
+        <pre id="detail-body"></pre>
+        <button id="copy-btn" style="display:none; position: absolute; top: 0.5rem; right: 0.5rem;">Copy</button>
+      </div>
     </section>
   </main>
   <script src="script.js"></script>
