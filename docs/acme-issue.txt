@@ -1,0 +1,4 @@
+acme Issue cert (standalone)
+Use standalone server to issue certs, on a custom port
+---
+acme.sh  --issue --server letsencrypt -d example.com  --standalone --httpport 88

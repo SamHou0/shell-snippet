@@ -1,0 +1,3 @@
+Add swap to machine
+---
+wget https://www.moerats.com/usr/shell/swap.sh && bash swap.sh

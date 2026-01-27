@@ -1,0 +1,5 @@
+Check network latency (for using reality)
+Edit the domain name when necessary.
+Use this when creating reality in s-ui.
+---
+for d in www.amd.com www.aws.com ipv6.6sc.co www.xbox.com amd.com aws.com www.tesla.com j.6sc.co c.6sc.co www.apple.com ; do t1=$(date +%s%3N); timeout 1 openssl s_client -connect $d:443 -servername $d </dev/null &>/dev/null && t2=$(date +%s%3N) && echo "$d: $((t2 - t1)) ms" || echo "$d: timeout"; done

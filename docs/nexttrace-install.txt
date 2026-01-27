@@ -1,0 +1,3 @@
+Install Nexttrace
+---
+curl -sL nxtrace.org/nt |bash

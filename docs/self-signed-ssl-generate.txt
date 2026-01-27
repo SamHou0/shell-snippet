@@ -1,0 +1,6 @@
+Generate self-signed ssl certificate
+---
+openssl req -x509 -nodes -days 114514 \
+  -newkey rsa:2048 \
+  -keyout fake.key \
+  -out fake.crt

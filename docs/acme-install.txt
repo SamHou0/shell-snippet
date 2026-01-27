@@ -1,0 +1,5 @@
+Install acme
+Install acme to the machine
+---
+curl https://get.acme.sh | sh -s email=you@example.com
+source ~/.bashrc

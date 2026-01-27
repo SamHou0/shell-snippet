@@ -1,0 +1,4 @@
+Apt Update
+Update apt repo with sudo access
+---
+sudo apt-get update

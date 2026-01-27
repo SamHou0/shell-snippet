@@ -1,0 +1,4 @@
+NodeQuality
+Run NodeQuality Benchmark Test
+---
+bash <(curl -sL https://run.NodeQuality.com)
