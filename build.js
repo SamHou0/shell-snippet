@@ -39,10 +39,14 @@ for (const fname of files) {
   const id = path.basename(fname, path.extname(fname));
   const raw = fs.readFileSync(path.join(docsDir, fname), 'utf8');
   const parts = raw.split(/\r?\n-{3,}\r?\n/); // split on a line with ---
-  const description = (parts[0] || '').trim();
+  const headerRaw = (parts[0] || '').trim();
   const body = (parts[1] || '').trim();
 
-  const snippet = { id, description, body };
+  const headerLines = headerRaw.split(/\r?\n/);
+  const description = (headerLines[0] || '').trim();
+  const explanation = headerLines.slice(1).join('\n').trim();
+
+  const snippet = { id, description, explanation, body };
   fs.writeFileSync(path.join(snippetsDir, `${id}.json`), JSON.stringify(snippet));
   index.push({ id, description });
 }

@@ -38,7 +38,7 @@ header {
   max-width: 1200px;
 }
 main {
-  width: 90%;
+  width: 80%;
   max-width: 1200px;
   margin: 0 auto 2rem auto;
 }
@@ -88,6 +88,30 @@ header input {
 }
 
 #detail { margin-top: 1rem; }
+#detail-title {
+  text-align: center;
+  border: 1px solid var(--btn-border);
+  border-radius: 8px;
+  padding: 1.5rem 3rem;
+  background: var(--btn-bg);
+  margin: 0 auto 1.5rem auto;
+  width: fit-content;
+  max-width: 100%;
+}
+#detail-explanation {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  white-space: pre-wrap;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+#empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #888;
+  font-size: 1.2rem;
+}
 .code-block {
   background: var(--pre-bg);
   color: var(--pre-color);

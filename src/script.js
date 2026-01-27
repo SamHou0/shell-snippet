@@ -1,7 +1,10 @@
 (function(){
   const searchInput = document.getElementById('search');
   const resultsEl = document.getElementById('results');
+  const detailSection = document.getElementById('detail');
+  const emptyState = document.getElementById('empty-state');
   const titleEl = document.getElementById('detail-title');
+  const explanationEl = document.getElementById('detail-explanation');
   const bodyEl = document.getElementById('detail-body');
   const copyBtn = document.getElementById('copy-btn');
   const editBtn = document.getElementById('edit-btn');
@@ -97,10 +100,16 @@
   async function loadDetail(id){
     if (id === selectedId) return;
     selectedId = id;
+    
+    // Show detail, hide empty state
+    detailSection.style.display = 'block';
+    emptyState.style.display = 'none';
+
     document.querySelectorAll('#results button').forEach(b => {
       b.classList.toggle('selected', b.dataset.id === id);
     });
     titleEl.textContent = '加载中...';
+    explanationEl.textContent = '';
     bodyEl.textContent = '';
     copyBtn.style.display = 'none';
     editBtn.style.display = 'none';
@@ -110,6 +119,7 @@
       const res = await fetch(`assets/snippets/${id}.json`);
       const sn = await res.json();
       titleEl.textContent = sn.description || id;
+      explanationEl.textContent = sn.explanation || '';
       
       currentSnippetBody = sn.body || '';
       
