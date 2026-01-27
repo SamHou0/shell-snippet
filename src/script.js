@@ -4,10 +4,14 @@
   const titleEl = document.getElementById('detail-title');
   const bodyEl = document.getElementById('detail-body');
   const copyBtn = document.getElementById('copy-btn');
+  const editBtn = document.getElementById('edit-btn');
   const themeToggle = document.getElementById('theme-toggle');
 
   // Dark Mode
-  if (localStorage.getItem('theme') === 'dark') {
+  const storedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
     document.body.classList.add('dark-mode');
   }
   themeToggle.addEventListener('click', () => {
@@ -17,15 +21,41 @@
 
   // Copy
   copyBtn.addEventListener('click', () => {
-    const text = bodyEl.textContent;
-    if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
+    let textToCopy = currentSnippetBody;
+    const textarea = bodyEl.querySelector('textarea');
+    if (textarea) {
+      textToCopy = textarea.value;
+    }
+    
+    if (!textToCopy) return;
+    navigator.clipboard.writeText(textToCopy).then(() => {
       const orig = copyBtn.textContent;
       copyBtn.textContent = '已复制!';
       setTimeout(() => copyBtn.textContent = orig, 1500);
     });
   });
 
+  // Edit
+  editBtn.addEventListener('click', () => {
+    const isEditing = !!bodyEl.querySelector('textarea');
+    if (isEditing) {
+      // Reset to view mode
+      renderSnippetView(currentSnippetBody);
+      editBtn.textContent = 'Edit';
+    } else {
+      // Switch to edit mode
+      bodyEl.innerHTML = '';
+      const textarea = document.createElement('textarea');
+      textarea.value = currentSnippetBody;
+      // Auto-resize
+      textarea.style.height = (currentSnippetBody.split('\n').length * 1.5 + 2) + 'rem';
+      bodyEl.appendChild(textarea);
+      textarea.focus();
+      editBtn.textContent = 'Reset';
+    }
+  });
+
+  let currentSnippetBody = '';
   let items = [];
   let selectedId = null;
 
@@ -51,6 +81,19 @@
     renderResults(items);
   }
 
+  function renderSnippetView(text) {
+    bodyEl.innerHTML = '';
+    if (text) {
+      const ol = document.createElement('ol');
+      text.split('\n').forEach(line => {
+          const li = document.createElement('li');
+          li.textContent = line || ' '; 
+          ol.appendChild(li);
+      });
+      bodyEl.appendChild(ol);
+    }
+  }
+
   async function loadDetail(id){
     if (id === selectedId) return;
     selectedId = id;
@@ -60,13 +103,21 @@
     titleEl.textContent = '加载中...';
     bodyEl.textContent = '';
     copyBtn.style.display = 'none';
+    editBtn.style.display = 'none';
+    editBtn.textContent = 'Edit';
 
     try {
       const res = await fetch(`assets/snippets/${id}.json`);
       const sn = await res.json();
       titleEl.textContent = sn.description || id;
-      bodyEl.textContent = sn.body || '';
-      if (sn.body) copyBtn.style.display = 'block';
+      
+      currentSnippetBody = sn.body || '';
+      
+      if (currentSnippetBody) {
+        renderSnippetView(currentSnippetBody);
+        copyBtn.style.display = 'block';
+        editBtn.style.display = 'block';
+      }
     } catch (e) {
       titleEl.textContent = 'Error';
       bodyEl.textContent = e.message;

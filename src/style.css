@@ -25,10 +25,23 @@ body {
   color: var(--text-color);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   margin: 0;
-  padding: 1rem;
+  padding: 0;
   transition: background-color 0.3s, color 0.3s;
 }
-header { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1rem auto;
+  width: 70%;
+  max-width: 1200px;
+}
+main {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+}
 header input {
   flex: 1;
   padding: 0.5rem;
@@ -47,21 +60,20 @@ header input {
 }
 
 #results ul {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 0.5rem;
   list-style: none;
   padding: 0;
 }
 #results li {
-  flex: 1 1 200px;
   margin: 0;
 }
 #results button {
   width: 100%;
   height: 100%;
-  text-align: left;
-  padding: 0.5rem;
+  text-align: center;
+  padding: 1rem;
   border: 1px solid var(--btn-border);
   border-radius: 6px;
   background: var(--btn-bg);
@@ -76,7 +88,7 @@ header input {
 }
 
 #detail { margin-top: 1rem; }
-pre {
+.code-block {
   background: var(--pre-bg);
   color: var(--pre-color);
   padding: 1rem;
@@ -84,15 +96,45 @@ pre {
   overflow: auto;
   font-family: monospace;
 }
-
-/* Copy button */
-#copy-btn {
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  cursor: pointer;
-  font-size: 0.8rem;
+.code-block ol {
+  list-style: decimal;
+  margin: 0;
+  padding-left: 2.5rem;
 }
-#copy-btn:hover { background: rgba(255,255,255,0.3); }
+.code-block li {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.code-block li::marker {
+  color: #888;
+  font-size: 0.9em;
+}
+
+/* Copy and Edit buttons */
+#copy-btn, #edit-btn {
+  background: var(--btn-bg);
+  color: var(--text-color);
+  border: 1px solid var(--btn-border);
+  border-radius: 4px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+#copy-btn:hover, #edit-btn:hover { background: var(--btn-hover); }
+
+/* Textarea in edit mode */
+.code-block textarea {
+  width: 100%;
+  min-height: 100px;
+  background: transparent;
+  color: inherit;
+  border: 1px dashed #555;
+  border-radius: 4px;
+  padding: 0.5rem;
+  resize: vertical;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  display: block;
+  box-sizing: border-box;
+}
