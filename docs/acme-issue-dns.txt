@@ -1,0 +1,6 @@
+acme Issue cert (dns cf)
+Use cloudflare dns to issue cert using letsencrypt
+---
+export CF_Token="token"
+export CF_Account_ID="ID"
+acme.sh --issue --dns dns_cf --server letsencrypt -d example.com -d '*.example.com'
