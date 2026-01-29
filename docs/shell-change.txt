@@ -1,0 +1,4 @@
+Change shell to bash
+Change login shell to bash
+---
+chsh -s /usr/bin/bash
