@@ -1,0 +1,7 @@
+acme Install cert
+Install cert to /etc/ssl with nginx reload
+---
+acme.sh --install-cert -d example.com \
+--key-file       /etc/ssl/example.com.key.pem  \
+--fullchain-file /etc/ssl/example.com.cert.pem \
+--reloadcmd     "service nginx reload"
